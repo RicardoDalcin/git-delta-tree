@@ -73,6 +73,7 @@ class gitDeltaTreeProvider implements vscode.TreeDataProvider<TreeNode> {
 
   constructor() {
     this.loadChangedFiles();
+    this.updateToggleButtonTitle();
   }
 
   getTreeItem(element: TreeNode): vscode.TreeItem {
@@ -379,6 +380,18 @@ class gitDeltaTreeProvider implements vscode.TreeDataProvider<TreeNode> {
   toggleView(): void {
     this.showTreeView = !this.showTreeView;
     this.loadChangedFiles();
+    this.updateToggleButtonTitle();
+  }
+
+  private updateToggleButtonTitle(): void {
+    const title = this.showTreeView
+      ? 'Switch to Flat View'
+      : 'Switch to Tree View';
+    vscode.commands.executeCommand(
+      'setContext',
+      'gitDeltaTree.viewMode',
+      this.showTreeView ? 'tree' : 'flat'
+    );
   }
 
   getViewMode(): string {

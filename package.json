@@ -34,14 +34,30 @@
         }
       ]
     },
+    "menus": {
+      "view/title": [
+        {
+          "command": "gitDeltaTree.refresh",
+          "when": "view == gitDeltaTree",
+          "group": "navigation"
+        },
+        {
+          "command": "gitDeltaTree.toggleView",
+          "when": "view == gitDeltaTree",
+          "group": "navigation"
+        }
+      ]
+    },
     "commands": [
       {
         "command": "gitDeltaTree.refresh",
-        "title": "Refresh Git Delta Tree"
+        "title": "Refresh Git Delta Tree",
+        "icon": "$(refresh)"
       },
       {
         "command": "gitDeltaTree.toggleView",
-        "title": "Toggle Tree/Flat View"
+        "title": "Toggle View",
+        "icon": "$(list-tree)"
       },
       {
         "command": "gitDeltaTree.openFile",
