@@ -12,7 +12,7 @@ interface ChangedFile {
   status: string;
 }
 
-class GitTreeCompareProvider implements vscode.TreeDataProvider<ChangedFile> {
+class gitDeltaTreeProvider implements vscode.TreeDataProvider<ChangedFile> {
   private _onDidChangeTreeData: vscode.EventEmitter<
     void | ChangedFile | null | undefined
   > = new vscode.EventEmitter<void | ChangedFile | null | undefined>();
@@ -30,7 +30,7 @@ class GitTreeCompareProvider implements vscode.TreeDataProvider<ChangedFile> {
   getTreeItem(element: ChangedFile): vscode.TreeItem {
     const treeItem = new vscode.TreeItem(element.path);
     treeItem.command = {
-      command: 'gitTreeCompare.openFile',
+      command: 'gitDeltaTree.openFile',
       title: 'Open File with Diff',
       arguments: [element.path],
     };
@@ -66,7 +66,7 @@ class GitTreeCompareProvider implements vscode.TreeDataProvider<ChangedFile> {
       const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
       if (!workspaceFolder) {
         vscode.window.showWarningMessage(
-          'Git Tree Compare: No workspace folder open'
+          'Git Delta Tree: No workspace folder open'
         );
         this.changedFiles = [];
         this._onDidChangeTreeData.fire();
@@ -113,25 +113,25 @@ class GitTreeCompareProvider implements vscode.TreeDataProvider<ChangedFile> {
         error.message.includes('Not a git repository')
       ) {
         vscode.window.showWarningMessage(
-          'Git Tree Compare: Not in a git repository'
+          'Git Delta Tree: Not in a git repository'
         );
       } else if (
         error instanceof Error &&
         error.message.includes('No commits found')
       ) {
         vscode.window.showWarningMessage(
-          'Git Tree Compare: No commits found in repository'
+          'Git Delta Tree: No commits found in repository'
         );
       } else if (
         error instanceof Error &&
         error.message.includes('fatal: ambiguous argument')
       ) {
         vscode.window.showWarningMessage(
-          'Git Tree Compare: No commits found or branch not found'
+          'Git Delta Tree: No commits found or branch not found'
         );
       } else {
         vscode.window.showErrorMessage(
-          'Git Tree Compare: Failed to load changed files'
+          'Git Delta Tree: Failed to load changed files'
         );
       }
 
@@ -210,19 +210,19 @@ class GitTreeCompareProvider implements vscode.TreeDataProvider<ChangedFile> {
 }
 
 export function activate(context: vscode.ExtensionContext) {
-  const provider = new GitTreeCompareProvider();
+  const provider = new gitDeltaTreeProvider();
 
-  vscode.window.registerTreeDataProvider('gitTreeCompare', provider);
+  vscode.window.registerTreeDataProvider('gitDeltaTree', provider);
 
   context.subscriptions.push(
-    vscode.commands.registerCommand('gitTreeCompare.refresh', () => {
+    vscode.commands.registerCommand('gitDeltaTree.refresh', () => {
       provider.refresh();
     })
   );
 
   context.subscriptions.push(
     vscode.commands.registerCommand(
-      'gitTreeCompare.openFile',
+      'gitDeltaTree.openFile',
       async (filePath: string) => {
         try {
           // Get the workspace folder to resolve relative paths

@@ -6,6 +6,11 @@
   "engines": {
     "vscode": "^1.99.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RicardoDalcin/git-delta-tree"
+  },
+  "license": "MIT",
   "categories": [
     "Other"
   ],
@@ -15,27 +20,27 @@
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "gitTreeCompareContainer",
-          "title": "Git Tree Compare",
+          "id": "gitDeltaTreeContainer",
+          "title": "Git Delta Tree",
           "icon": "resources/git.svg"
         }
       ]
     },
     "views": {
-      "gitTreeCompareContainer": [
+      "gitDeltaTreeContainer": [
         {
-          "id": "gitTreeCompare",
+          "id": "gitDeltaTree",
           "name": "Changed Files"
         }
       ]
     },
     "commands": [
       {
-        "command": "gitTreeCompare.refresh",
-        "title": "Refresh Git Tree Compare"
+        "command": "gitDeltaTree.refresh",
+        "title": "Refresh Git Delta Tree"
       },
       {
-        "command": "gitTreeCompare.openFile",
+        "command": "gitDeltaTree.openFile",
         "title": "Open File with Diff"
       }
     ]
@@ -46,10 +51,11 @@
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint",
     "lint": "eslint src",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "package": "vsce package --no-dependencies"
   },
   "devDependencies": {
-    "@types/vscode": "^1.103.0",
+    "@types/vscode": "^1.99.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
     "@typescript-eslint/eslint-plugin": "^8.39.0",
