@@ -30,7 +30,7 @@
       "gitDeltaTreeContainer": [
         {
           "id": "gitDeltaTree",
-          "name": "Changed Files"
+          "name": "Git Delta Tree"
         }
       ]
     },
@@ -38,6 +38,10 @@
       {
         "command": "gitDeltaTree.refresh",
         "title": "Refresh Git Delta Tree"
+      },
+      {
+        "command": "gitDeltaTree.toggleView",
+        "title": "Toggle Tree/Flat View"
       },
       {
         "command": "gitDeltaTree.openFile",
